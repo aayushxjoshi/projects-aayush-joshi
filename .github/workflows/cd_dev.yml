@@ -11,10 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: |
-          echo "${{secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
-          ssh -i ~/ssh_key ubuntu@100.52.152.26
-          cd projects-aayush-joshi/ && git pull
+      - name: SSH Into Server
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 600 ~/ssh_key
+
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@100.52.152.26 << 'EOF'
+          cd projects-aayush-joshi/
+          git pull
           npm install
           npm run build
           pm2 restart projects-aayush-repo
+          EOF
