@@ -8,6 +8,7 @@ on:
 jobs:
   redeploy_service:
     name: Redeploy projects-aayush dev Environment
+    runs-on: ubuntu-latest
 
     steps:
       - name: SSH Into Server
