@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH Into Server
-      - run: |
-          printf "%s" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+      - name: Setup SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
           chmod 600 ~/ssh_key
 
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@100.52.152.26 << 'EOF'
