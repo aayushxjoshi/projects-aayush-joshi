@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Debug SSH secret
         run: |
-          SECRET="${{ secrets.SSH_PRIVATE_KEY_BASE64 }}"
+          SECRET="${{ secrets.SSH_PRIVATE_KEY }}"
 
           if [ -z "$SECRET" ]; then
             echo "❌ SECRET IS EMPTY"
