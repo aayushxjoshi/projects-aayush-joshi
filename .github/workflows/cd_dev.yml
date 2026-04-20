@@ -11,18 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug SSH secret
+      - name: Setup SSH & Deploy
         run: |
-          SECRET="${{ secrets.SSH_PRIVATE_KEY }}"
+          SECRET="${{ secrets.SSH_PRIVATE_KEY_BASE64 }}"
 
-          if [ -z "$SECRET" ]; then
-            echo "❌ SECRET IS EMPTY"
-            exit 1
-          else
-            echo "✅ SECRET IS PRESENT"
-          fi
+          echo "$SECRET" | base64 -d > ~/ssh_key
+          chmod 600 ~/ssh_key
 
-          echo "Length of secret: ${#SECRET}"
+          echo "Key file created:"
+          ls -l ~/ssh_key
+
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@100.52.152.26 << 'EOF'
           cd projects-aayush-joshi/
           git pull
