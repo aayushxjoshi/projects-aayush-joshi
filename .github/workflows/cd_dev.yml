@@ -17,9 +17,18 @@ jobs:
           chmod 600 ~/ssh_key
 
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@100.52.152.26 << 'EOF'
+
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          node -v
+          npm -v
+          pm2 -v
+
           cd projects-aayush-joshi/
           git pull
           npm install
           npm run build
           pm2 restart projects-aayush-repo
+
           EOF
