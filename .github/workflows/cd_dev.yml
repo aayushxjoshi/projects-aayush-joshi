@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Setup SSH & Deploy
         run: |
-          SECRET="${{ secrets.SSH_PRIVATE_KEY_BASE64 }}"
+          SECRET="${{ secrets.SSH_PRIVATE_KEY }}"
 
           echo "$SECRET" | base64 -d > ~/ssh_key
           chmod 600 ~/ssh_key
