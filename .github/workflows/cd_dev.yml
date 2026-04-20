@@ -11,15 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup SSH & Deploy
+      - name: Setup SSH
         run: |
-          SECRET="${{ secrets.SSH_PRIVATE_KEY }}"
-
-          echo "$SECRET" | base64 -d > ~/ssh_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
           chmod 600 ~/ssh_key
-
-          echo "Key file created:"
-          ls -l ~/ssh_key
 
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@100.52.152.26 << 'EOF'
           cd projects-aayush-joshi/
