@@ -5,6 +5,7 @@ on:
     branches:
       - "main"
 
+# THis Job Need to make changes for the EC2
 jobs:
   redeploy_service:
     name: Redeploy projects-aayush dev Environment
